@@ -1,0 +1,4 @@
+{
+  "extends": "@oclif/tslint",
+  "no-any": false
+}
