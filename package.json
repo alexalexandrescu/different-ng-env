@@ -10,6 +10,7 @@
   "dependencies": {
     "@oclif/command": "^1.5.12",
     "@oclif/config": "^1.12.12",
+    "@oclif/errors": "^1.2.2",
     "@oclif/plugin-help": "^2.1.6",
     "cli-ux": "^5.2.1",
     "dotenv-parse-variables": "^0.2.0",

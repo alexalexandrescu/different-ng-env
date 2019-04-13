@@ -1,4 +1,4 @@
-import { Command, flags } from '@oclif/command'
+import {Command, flags} from '@oclif/command'
 import cli from 'cli-ux'
 
 const fs = require('fs')
@@ -35,14 +35,13 @@ class DifferentNgEnv extends Command {
     return new Promise(resolve => {
       // Check if the file exists in the current directory.
       fs.access(path, fs.constants.F_OK, (err: Error) => {
-        if (err) return resolve(false);
+        if (err) return resolve(false)
         return resolve(true)
       })
     })
   }
 
   generateConst(data: any) {
-
     const output = `// Generated on ${new Date()}
 export const environment = {
   /* tslint:disable */
@@ -60,7 +59,7 @@ export const environment = {
   }
 
   async run() {
-    const {args, flags} = this.parse(DifferentNgEnv)
+    const {flags} = this.parse(DifferentNgEnv)
 
     if (flags.clear) {
       firstRun.clear()
