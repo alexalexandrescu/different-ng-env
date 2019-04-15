@@ -1,4 +1,4 @@
-import { Command, flags } from '@oclif/command'
+import {Command, flags} from '@oclif/command'
 import cli from 'cli-ux'
 
 const fs = require('fs')
@@ -88,7 +88,7 @@ export const environment = {
         }
 
         if (await DifferentNgEnv.fileExists('.gitignore')) {
-          fs.readFile('.gitignore', 'utf8', (error: Error, contents: string) => {
+          fs.readFile('.gitignore', 'utf8', (_error: Error, contents: string) => {
             if (!contents.includes(ignorePath)) {
               fs.appendFileSync('.gitignore', ignorePath)
               this.log(`Added "${ignorePath}" to .gitignore`)
@@ -107,7 +107,7 @@ export const environment = {
     })
     const parsedVars = dotEnvParseVariables(envVars.required)
 
-    this.generateConst(parsedVars)
+    await this.generateConst(parsedVars)
 
   }
 }
