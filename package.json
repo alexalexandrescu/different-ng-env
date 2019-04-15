@@ -16,6 +16,7 @@
     "dotenv-parse-variables": "^0.2.0",
     "dotenv-safe": "^6.1.0",
     "first-run": "^1.2.0",
+    "shelljs": "^0.8.3",
     "tslib": "^1.9.3"
   },
   "devDependencies": {

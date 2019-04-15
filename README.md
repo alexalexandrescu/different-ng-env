@@ -9,7 +9,24 @@ A different way to handle Angular environments
 [![License](https://img.shields.io/npm/l/different-ng-env.svg)](https://github.com/alexalexandrescu/different-ng-env/blob/master/package.json)
 
 <!-- toc -->
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
 # Usage
 <!-- usage -->
+```sh-session
+$ npm install different-ng-env
+$ ng-env
+running command...
+$ ng-env (-v|--version|version)
+different-ng-env/0.0.1 darwin-x64 node-v11.13.0
+$ ng-env --help
+USAGE
+  $ ng-env
+...
+```
+<!-- usagestop -->
 # Commands
 <!-- commands -->
+
+<!-- commandsstop -->

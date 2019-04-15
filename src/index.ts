@@ -1,9 +1,10 @@
-import {Command, flags} from '@oclif/command'
+import { Command, flags } from '@oclif/command'
 import cli from 'cli-ux'
 
 const fs = require('fs')
 const dotEnvParseVariables = require('dotenv-parse-variables')
 const firstRun = require('first-run')
+const shell = require('shelljs')
 
 class DifferentNgEnv extends Command {
   static description = 'describe the command here'
@@ -41,7 +42,8 @@ class DifferentNgEnv extends Command {
     })
   }
 
-  generateConst(data: any) {
+  async generateConst(data: any) {
+    const filePath = './src/environments/environment.ts'
     const output = `// Generated on ${new Date()}
 export const environment = {
   /* tslint:disable */
@@ -50,9 +52,14 @@ export const environment = {
 };
 `
 
-    fs.writeFile('./src/environments/environment.ts', output, (err: any) => {
+    if (!await DifferentNgEnv.fileExists(filePath)) {
+      fs.mkdirSync('./src/environments', {recursive: true})
+    }
+
+    fs.writeFile(filePath, output, (err: any) => {
       if (err) {
         this.log(err)
+        return
       }
       this.log('Angular environment file generated')
     })
@@ -66,15 +73,32 @@ export const environment = {
     }
     // firstRun.clear()
     if (firstRun()) {
-      if (await cli.confirm('This seems to be the first time you run this command, would you like to allow this command to do required changes?')) {
-        const envExample = '.env.example'
+      const envExample = '.env.example'
+      const ignorePath = 'src/environments'
+      let runPrep = false
+      if (!flags.yes) {
+        runPrep = await cli.confirm('This seems to be the first time you run this command, would you like to do required changes automatically?')
+      } else {
+        runPrep = true
+      }
 
+      if (runPrep) {
         if (!await DifferentNgEnv.fileExists(envExample)) {
           fs.closeSync(fs.openSync(envExample, 'w'))
         }
 
-        fs.appendFileSync('.gitignore', 'src/environments')
-
+        if (await DifferentNgEnv.fileExists('.gitignore')) {
+          fs.readFile('.gitignore', 'utf8', (error: Error, contents: string) => {
+            if (!contents.includes(ignorePath)) {
+              fs.appendFileSync('.gitignore', ignorePath)
+              this.log(`Added "${ignorePath}" to .gitignore`)
+            }
+          })
+          if (shell.exec(`git ls-files --error-unmatch ${ignorePath}`, {silent: true}).code === 0) {
+            shell.exec(`git rm --cached -r ${ignorePath}`)
+            this.log(`Removed "${ignorePath}" from versioned files`)
+          }
+        }
       }
     }
 
@@ -84,11 +108,7 @@ export const environment = {
     const parsedVars = dotEnvParseVariables(envVars.required)
 
     this.generateConst(parsedVars)
-    // const name = flags.name || 'world'
-    // this.log(`hello ${name} from ./src/index.ts`)
-    // if (args.file && flags.force) {
-    //   this.log(`you input --force and --file: ${args.file}`)
-    // }
+
   }
 }
 
