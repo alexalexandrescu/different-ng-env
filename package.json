@@ -1,7 +1,7 @@
 {
   "name": "different-ng-env",
   "description": "A different way to handle Angular environments",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Alex Alexandrescu @alexalexandrescu",
   "bin": {
     "ng-env": "./bin/run"
@@ -15,6 +15,7 @@
     "cli-ux": "^5.2.1",
     "dotenv-parse-variables": "^0.2.0",
     "dotenv-safe": "^6.1.0",
+    "find-up": "^4.1.0",
     "first-run": "^1.2.0",
     "shelljs": "^0.8.3",
     "tslib": "^1.9.3"

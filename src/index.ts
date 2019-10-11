@@ -5,6 +5,7 @@ const fs = require('fs')
 const dotEnvParseVariables = require('dotenv-parse-variables')
 const firstRun = require('first-run')
 const shell = require('shelljs')
+const findUp = require('find-up')
 
 class DifferentNgEnv extends Command {
   static description = 'describe the command here'
@@ -43,6 +44,14 @@ class DifferentNgEnv extends Command {
   }
 
   async generateConst(data: any) {
+    const pkgPath = await findUp('package.json')
+    if (await DifferentNgEnv.fileExists(pkgPath)) {
+      const pkg = require(pkgPath)
+      if (data && pkg && pkg.version) {
+        data.VERSION = pkg.version
+      }
+    }
+
     const filePath = './src/environments/environment.ts'
     const output = `// Generated on ${new Date()}
 export const environment = {
