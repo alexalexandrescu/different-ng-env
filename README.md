@@ -1,32 +1,30 @@
 different-ng-env
 ================
 
-A different way to handle Angular environments
+Angular environments requires multiple files for each environment you would eventually want to deploy it to and these files are required to be commited to the source control system of choice. This makes it difficult to keep private things like api keys, private paths of hashes in case of widely distributed projects.  
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/different-ng-env.svg)](https://npmjs.org/package/different-ng-env)
-[![Downloads/week](https://img.shields.io/npm/dw/different-ng-env.svg)](https://npmjs.org/package/different-ng-env)
-[![License](https://img.shields.io/npm/l/different-ng-env.svg)](https://github.com/alexalexandrescu/different-ng-env/blob/master/package.json)
+On top of that most automation engineers would like to avoid editing directly the typescript files mentioned before and would preffer to just supply environment variable.
 
-<!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
+Taking advantage of the wide spread usage of dotenv this helper tool will clear away your existing main/production environments file, ignore it for versioning (if using git, sorry SVN users), read only the environment variables you need and create a typescript file to be used by the Angular build script.
 # Usage
 <!-- usage -->
+Installation
 ```sh-session
-$ npm install different-ng-env
+$ npm i different-ng-env
 $ ng-env
-running command...
-$ ng-env (-v|--version|version)
-different-ng-env/0.0.1 darwin-x64 node-v11.13.0
-$ ng-env --help
-USAGE
-  $ ng-env
-...
 ```
+
+Define in `.env.example` the environment variables you want available to your Angular runtime, for example
+```
+ENV = DEV
+URL = "localhost:8080"
+```
+
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-
+The `-y` flag will look for a `.env.example` file, if none is found will create an empty one. It will also remove `./src/environments` folder from git versioning and add it to `.gitignore`
+```sh-session
+$ ng-env -y
+```
 <!-- commandsstop -->

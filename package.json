@@ -8,23 +8,11 @@
   },
   "bugs": "https://github.com/alexalexandrescu/different-ng-env/issues",
   "dependencies": {
-    "@oclif/command": "^1.5.12",
-    "@oclif/config": "^1.12.12",
-    "@oclif/errors": "^1.2.2",
-    "@oclif/plugin-help": "^2.1.6",
-    "cli-ux": "^5.2.1",
     "dotenv-parse-variables": "^0.2.0",
     "dotenv-safe": "^6.1.0",
     "first-run": "^1.2.0",
     "shelljs": "^0.8.3",
-    "tslib": "^1.9.3"
-  },
-  "devDependencies": {
-    "@oclif/tslint": "^3.1.1",
-    "@types/node": "^10.14.4",
-    "ts-node": "^8.0.3",
-    "tslint": "^5.15.0",
-    "typescript": "^3.4.3"
+    "yargs": "^14.2.0"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -34,19 +22,11 @@
     "/lib"
   ],
   "homepage": "https://github.com/alexalexandrescu/different-ng-env",
-  "keywords": [
-    "oclif"
-  ],
+  "keywords": [],
   "license": "MIT",
   "main": "lib/index.js",
-  "oclif": {
-    "bin": "ng-env"
-  },
   "repository": "alexalexandrescu/different-ng-env",
   "scripts": {
-    "posttest": "tslint -p . -t stylish",
-    "prepack": "rm -rf lib && tsc -b",
     "test": "echo NO TESTS"
-  },
-  "types": "lib/index.d.ts"
+  }
 }
